@@ -6,3 +6,7 @@ dist/
 .env.local
 .cache/
 .tmp/
+loop/.lock
+loop/state.json
+loop/agent-runs.jsonl
+loop/growth-reports/
