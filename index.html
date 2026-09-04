@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-hub-framework · kajica2</title>
+<meta name="description" content="Forkable framework for the Sovereign Signal agent hub. Schemas, validate, build, loop orchestration, paywall enforcement.">
+<style>
+  :root { --bg: #04060a; --fg: #d6e1f0; --fg-dim: #6b7d96; --line: #1a2533; --cyan: #00e5ff; --magenta: #ff3df0; --amber: #ffb547; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font: 14px/1.6 -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem); max-width: 900px; margin: 0 auto; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  h1 { color: var(--cyan); font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h1::before { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--magenta); margin-right: 12px; vertical-align: middle; }
+  .tagline { color: var(--fg-dim); font-style: italic; }
+  h2 { color: var(--magenta); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin: 2rem 0 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
+  .card { background: #0a0f17; border: 1px solid var(--line); border-radius: 6px; padding: 1rem; }
+  .card:hover { border-color: var(--cyan); }
+  .card h3 { font-size: 1rem; color: var(--fg); margin-bottom: 0.5rem; }
+  .card p { color: var(--fg-dim); font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .card a { color: var(--cyan); text-decoration: none; font-family: ui-monospace, monospace; font-size: 0.8rem; }
+  .card a:hover { color: var(--magenta); }
+  footer { border-top: 1px solid var(--line); padding-top: 1.5rem; margin-top: 3rem; color: var(--fg-dim); font-size: 0.8rem; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; background: #0a0f17; padding: 1px 6px; border-radius: 3px; color: var(--amber); font-size: 0.85em; }
+  .meta { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .meta span { color: var(--fg-dim); font-size: 0.85rem; }
+  .meta span b { color: var(--cyan); font-weight: normal; }
+  .badge { display: inline-block; padding: 2px 6px; border-radius: 3px; background: var(--line); color: var(--cyan); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+<header>
+  <h1>agent-hub-framework</h1>
+  <p class="tagline">A forkable framework for the Sovereign Signal agent hub.</p>
+  <div class="meta">
+    <span><b>owner</b> kajica2</span>
+    <span><b>license</b> MIT</span>
+    <span><b>phase</b> <span class="badge">v0.1.0</span></span>
+  </div>
+</header>
+
+<h2>Read first</h2>
+<div class="grid">
+  <div class="card">
+    <h3>PURPOSE.md</h3>
+    <p>The 5 rules. What we are, what we're not. Why paywalls exist.</p>
+    <a href="https://github.com/kajica2/agent-hub-framework/blob/main/PURPOSE.md">read on GitHub →</a>
+  </div>
+  <div class="card">
+    <h3>AGENTS.md</h3>
+    <p>The agent team contract. Who owns what. How agents collaborate.</p>
+    <a href="https://github.com/kajica2/agent-hub-framework/blob/main/AGENTS.md">read on GitHub →</a>
+  </div>
+  <div class="card">
+    <h3>prompts/long-horizon.md</h3>
+    <p>The master instruction set. 10 ordered steps. Read this when stepping into a task.</p>
+    <a href="https://github.com/kajica2/agent-hub-framework/blob/main/prompts/long-horizon.md">read on GitHub →</a>
+  </div>
+</div>
+
+<h2>Quick start</h2>
+<pre><code>git clone https://github.com/kajica2/agent-hub-framework.git
+cd agent-hub-framework
+npm install
+npm run validate    # schema + paywall gate
+npm run build       # paywall-gated dist/ output
+npm run loop        # one rotation of the long-horizon supervisor</code></pre>
+
+<h2>What's in here</h2>
+<div class="grid">
+  <div class="card">
+    <h3>schema/</h3>
+    <p>JSON Schemas. Project, channel, capability taxonomy (closed vocabulary).</p>
+  </div>
+  <div class="card">
+    <h3>scripts/</h3>
+    <p>validate.mjs (gate), build.mjs (paywall partition), capture-screenshots.mjs.</p>
+  </div>
+  <div class="card">
+    <h3>loop/</h3>
+    <p>supervisor.mjs — round-robin orchestrator with termination + cooling-off.</p>
+  </div>
+  <div class="card">
+    <h3>watchdog/</h3>
+    <p>One-step relay. Telegram + iMessage bridge. End-of-rope hand-off.</p>
+  </div>
+  <div class="card">
+    <h3>plans/</h3>
+    <p>long-horizon.md — 3-year / 12-month / 90-day / this-month horizons.</p>
+  </div>
+  <div class="card">
+    <h3>examples/</h3>
+    <p>Forkable templates. projects.example.json (24 entries), agents.example.json (8 personas).</p>
+  </div>
+  <div class="card">
+    <h3>components/</h3>
+    <p>Component library scaffold. framework-owned, cross-linked from projects.</p>
+  </div>
+  <div class="card">
+    <h3>.github/workflows/</h3>
+    <p>loop.yml (5-min cron + per-push), watchdog.yml (8h heartbeat + done/stuck triggers).</p>
+  </div>
+</div>
+
+<h2>The paywall discipline</h2>
+<p style="margin-bottom:1rem;">Project entries with <code>material_license.kind ∈ {internal-paywalled, licensed-restricted, private}</code> are <b>never</b> written to public output. The build script (<code>scripts/build.mjs</code>) exits with code 1 on any leak attempt. Bob Mover lexicon, Serious Fun, Jazzability are examples of internal-paywalled content that the build script correctly filters out of public-side artifacts.</p>
+
+<footer>
+  <p>MIT licensed. Maintained by kajica2 + the agent team.</p>
+  <p style="margin-top:0.5rem;">Last deploy: 2026-09-04 · <a href="https://github.com/kajica2/agent-hub-framework" style="color:var(--cyan);text-decoration:none;">github.com/kajica2/agent-hub-framework</a></p>
+</footer>
+</body>
+</html>
