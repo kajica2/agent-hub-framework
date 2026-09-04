@@ -1,0 +1,26 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly: catches drift if anyone bypasses CI
+    - cron: '0 6 * * 1'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+      - name: Validate schemas + paywall
+        run: node scripts/validate.mjs examples/projects.example.json examples/agents.example.json
+      - name: Build (paywall-gated)
+        run: node scripts/build.mjs --source examples --out dist
