@@ -1,0 +1,39 @@
+name: agent-loop
+
+on:
+  schedule:
+    # Every 5 minutes. Adjust cron as needed.
+    - cron: '*/5 * * * *'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  rotate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate
+        run: node scripts/validate.mjs examples/projects.example.json examples/agents.example.json
+
+      - name: Run one rotation
+        run: node loop/supervisor.mjs
+
+      - name: Commit growth report if changed
+        run: |
+          git config user.name "agent-loop"
+          git config user.email "loop@agent.local"
+          if [ -n "$(git status --porcelain loop/growth-reports/ loop/state.json loop/agent-runs.jsonl 2>/dev/null)" ]; then
+            git add loop/growth-reports/ loop/state.json loop/agent-runs.jsonl
+            git commit -m "loop: rotation ${{ github.run_number }}" || true
+            git push
+          fi
