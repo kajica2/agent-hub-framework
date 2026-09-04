@@ -54,14 +54,17 @@ async function sendTelegram(text) {
 
 function sendIMessage(text) {
   // macOS-only. Uses AppleScript to send via Messages.app.
-  // Recipient: yourself (buddy name "Kai" or whatever is in your Messages).
-  // You can change `buddy` to a phone/email if you want it to go to a specific device.
+  // On non-macOS (Linux runners, CI), returns a clean "not available" error.
+  if (process.platform !== 'darwin') {
+    return { ok: false, channel: 'imessage', error: 'imessage only available on macOS' };
+  }
   const buddy = process.env.IMESSAGE_BUDDY || 'kai@djuric.local';
-  // Escape text for AppleScript
-  const escaped = text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-  const script = `tell application "Messages" to send "${escaped}" to buddy "${buddy}"`;
+  // Flatten newlines so AppleScript quoting doesn't break.
+  const flattened = text.replace(/\r?\n/g, ' / ');
+  const escaped = flattened.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  const script = `tell application "Messages" to send \"${escaped}\" to buddy \"${buddy}\"`;
   try {
-    execSync(`osascript -e '${script}'`, { timeout: 8000 });
+    execSync(`osascript -e ${JSON.stringify(script)}`, { timeout: 8000 });
     return { ok: true, channel: 'imessage' };
   } catch (e) {
     return { ok: false, channel: 'imessage', error: String(e).slice(0, 200) };
