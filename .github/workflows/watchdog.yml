@@ -1,0 +1,47 @@
+name: watchdog
+
+on:
+  # When a step is done (PR merged or push to main on the data repo)
+  push:
+    branches: [main]
+  # PR merged → notify
+  pull_request:
+    types: [closed]
+    branches: [main]
+  # Scheduled heartbeat — every 8 hours
+  schedule:
+    - cron: '0 */8 * * *'
+  # Manual trigger (for testing)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Message mode: done, stuck, heartbeat'
+        required: true
+        default: 'heartbeat'
+      step:
+        description: 'Which step number'
+        required: false
+        default: '?'
+      summary:
+        description: 'One-sentence summary'
+        required: false
+        default: ''
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Send watchdog message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          IMESSAGE_BUDDY: ${{ secrets.IMESSAGE_BUDDY }}
+          WD_MODE: ${{ github.event.inputs.mode || 'heartbeat' }}
+          WD_STEP: ${{ github.event.inputs.step || github.event.pull_request.number || github.event.head_commit.id || '?' }}
+          WD_SUMMARY: ${{ github.event.inputs.summary || github.event.head_commit.message || '' }}
+        run: |
+          node watchdog/watchdog.mjs \
+            --mode "$WD_MODE" \
+            --step "$WD_STEP" \
+            --summary "$WD_SUMMARY"
