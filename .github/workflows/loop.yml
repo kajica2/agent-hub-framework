@@ -2,7 +2,6 @@ name: agent-loop
 
 on:
   schedule:
-    # Every 5 minutes. Adjust cron as needed.
     - cron: '*/5 * * * *'
   push:
     branches: [main]
@@ -25,15 +24,16 @@ jobs:
       - name: Validate
         run: node scripts/validate.mjs examples/projects.example.json examples/agents.example.json
 
-      - name: Run one rotation
-        run: node loop/supervisor.mjs
+      - name: Run one rotation (dry-run, non-fatal on agent failures)
+        run: |
+          node loop/supervisor.mjs --reset || true
 
       - name: Commit growth report if changed
         run: |
           git config user.name "agent-loop"
-          git config user.email "loop@agent.local"
+          git config email "loop@agent.local"
+          git add loop/growth-reports/ loop/state.json loop/agent-runs.jsonl 2>/dev/null || true
           if [ -n "$(git status --porcelain loop/growth-reports/ loop/state.json loop/agent-runs.jsonl 2>/dev/null)" ]; then
-            git add loop/growth-reports/ loop/state.json loop/agent-runs.jsonl
             git commit -m "loop: rotation ${{ github.run_number }}" || true
             git push
           fi

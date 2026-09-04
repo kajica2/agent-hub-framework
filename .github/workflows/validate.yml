@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Weekly: catches drift if anyone bypasses CI
     - cron: '0 6 * * 1'
 
 jobs:

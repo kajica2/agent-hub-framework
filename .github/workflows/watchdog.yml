@@ -1,17 +1,13 @@
 name: watchdog
 
 on:
-  # When a step is done (PR merged or push to main on the data repo)
   push:
     branches: [main]
-  # PR merged → notify
   pull_request:
     types: [closed]
     branches: [main]
-  # Scheduled heartbeat — every 8 hours
   schedule:
     - cron: '0 */8 * * *'
-  # Manual trigger (for testing)
   workflow_dispatch:
     inputs:
       mode:
@@ -32,6 +28,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
       - name: Send watchdog message
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
