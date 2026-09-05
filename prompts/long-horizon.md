@@ -199,6 +199,36 @@ multiplayer presence in the journey, the 10-step-ahead agent) are in
 `plans/agent-hub-phase1.md` and `plans/long-horizon.md`. Read those
 before you assume Phase 1 is enough.
 
+
+
+---
+
+# Status (as of 2026-09-05)
+
+This is the running scoreboard. Update it as steps complete.
+
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 1 | Push framework to GitHub | ✅ DONE | https://github.com/kajica2/agent-hub-framework |
+| 2 | Wire CI (validate + agent-loop + watchdog + bootstrap) | ✅ DONE | All 4 workflows green; Pages live |
+| 3 | Build kajica2.github.io hub instance | ✅ DONE | https://kajica2.github.io/, 21 public projects, 3 paywalled internal-only |
+| 4 | Run bootstrap agent on kajica2's repos | ✅ DONE | 147 repos classified, draft saved to _bootstrap/ |
+| 5 | Wire daily research agent | ✅ DONE | 18 reports ingested from HF daily-pipeline-director-cut, daily cron |
+| 6 | Scaffold Chrome extension | ⏳ TODO | Design in plan section 22 |
+| 7 | Wire watchdog with Telegram bot | ⚠️ PARTIAL | Workflow + scripts ready; needs Kai to paste TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID as repo secrets |
+| 8 | Daily research agent schema + sample report | ⏳ TODO | Sample report can come from existing HF Space ingestion |
+| 9 | Agent personas become first-class hub pages | ⚠️ PARTIAL | /agents/index.html exists (24KB directory), per-agent pages TODO |
+| 10 | Paywall audit | ⏳ TODO | Discipline enforced in code; written audit doc TODO |
+
+## Live infrastructure
+
+- **Framework repo**: https://github.com/kajica2/agent-hub-framework (GitHub Pages at /agent-hub-framework/)
+- **Instance repo**: https://github.com/kajica2/kajica2.github.io (live hub)
+- **Both repos have** watchdog.yml with narrow path triggers (no spam), Telegram + iMessage bridges, validated workflows
+- **Daily report cron**: 05:30 UTC daily, picks up new HF reports before the 06:00 rebuild
+
+---
+
 ---
 
 *Last updated 2026-09-04. Maintained by Kai + the agent team.*
