@@ -1,15 +1,25 @@
 name: watchdog
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '_bootstrap/**'
-      - 'prompts/**'
-      - 'plans/**'
+  # PR merged to main: this is the primary "something happened" trigger
   pull_request:
     types: [closed]
     branches: [main]
+  # Push to specific meaningful paths: not loop state, not daily ingestion
+  push:
+    branches: [main]
+    paths:
+      - 'PURPOSE.md'
+      - 'AGENTS.md'
+      - 'prompts/**'
+      - 'plans/**'
+      - '_bootstrap/draft/**'
+      - 'schema/**'
+      - 'scripts/**'
+      - 'watchdog/**'
+      - 'examples/**'
+      - 'components/**'
+  # Schedule: 8h heartbeat (configurable below)
   schedule:
     - cron: '0 */8 * * *'
   workflow_dispatch:
