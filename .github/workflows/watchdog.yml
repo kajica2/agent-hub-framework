@@ -3,6 +3,10 @@ name: watchdog
 on:
   push:
     branches: [main]
+    paths:
+      - '_bootstrap/**'
+      - 'prompts/**'
+      - 'plans/**'
   pull_request:
     types: [closed]
     branches: [main]

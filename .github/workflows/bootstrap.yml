@@ -1,0 +1,30 @@
+name: bootstrap-agent
+
+on:
+  # Weekly: refresh the inventory draft
+  schedule:
+    - cron: '0 4 * * 1'  # Monday 04:00 UTC
+  workflow_dispatch:        # manual trigger for re-curation
+
+jobs:
+  walk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Walk kajica2 repos
+        run: node bootstrap-agent/walk-repos.mjs --owner kajica2
+      - name: Extract components
+        run: node bootstrap-agent/extract-components.mjs
+      - name: Commit draft inventory
+        run: |
+          git config user.name "bootstrap-agent"
+          git config user.email "bootstrap@agent.local"
+          git add _bootstrap/draft/
+          if [ -n "$(git status --porcelain _bootstrap/draft/)" ]; then
+            git commit -m "bootstrap: refresh kajica2 repo inventory"
+            git push
+          fi
