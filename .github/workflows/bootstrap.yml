@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: '22'
       - name: Walk kajica2 repos
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node bootstrap-agent/walk-repos.mjs --owner kajica2
       - name: Extract components
         run: node bootstrap-agent/extract-components.mjs
