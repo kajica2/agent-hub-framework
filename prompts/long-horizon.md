@@ -217,7 +217,7 @@ This is the running scoreboard. Update it as steps complete.
 | 6 | Scaffold Chrome extension | ⏳ TODO | Design in plan section 22 |
 | 7 | Wire watchdog with Telegram bot | ⚠️ PARTIAL | Workflow + scripts ready; needs Kai to paste TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID as repo secrets |
 | 8 | Daily research agent schema + sample report | ⏳ TODO | Sample report can come from existing HF Space ingestion |
-| 9 | Agent personas become first-class hub pages | ⚠️ PARTIAL | /agents/index.html exists (24KB directory), per-agent pages TODO |
+| 9 | Agent personas become first-class hub pages | 🔁 IN REVIEW | build.mjs renders /agents/<name>.html + monogram graphics (PR #1); instance deploy follows merge |
 | 10 | Paywall audit | ⏳ TODO | Discipline enforced in code; written audit doc TODO |
 
 ## Live infrastructure
