@@ -214,7 +214,7 @@ This is the running scoreboard. Update it as steps complete.
 | 3 | Build kajica2.github.io hub instance | ✅ DONE | https://kajica2.github.io/, 21 public projects, 3 paywalled internal-only |
 | 4 | Run bootstrap agent on kajica2's repos | ✅ DONE | 147 repos classified, draft saved to _bootstrap/ |
 | 5 | Wire daily research agent | ✅ DONE | 18 reports ingested from HF daily-pipeline-director-cut, daily cron |
-| 6 | Scaffold Chrome extension | ⏳ TODO | Design in plan section 22 |
+| 6 | Scaffold Chrome extension | 🔁 IN REVIEW | MV3 bridge scaffolded in `extension/` (plan §22): 7 shortcuts, queue, PR-based intake, paywall redaction — 24/24 logic tests green, PR open |
 | 7 | Wire watchdog with Telegram bot | ⚠️ PARTIAL | Workflow + scripts ready; needs Kai to paste TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID as repo secrets |
 | 8 | Daily research agent schema + sample report | ⏳ TODO | Sample report can come from existing HF Space ingestion |
 | 9 | Agent personas become first-class hub pages | ⚠️ PARTIAL | /agents/index.html exists (24KB directory), per-agent pages TODO |

@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Sovereign Signal Bridge</title>
+<link rel="stylesheet" href="popup.css"></head>
+<body>
+<header>
+  <h1>Signal Bridge</h1>
+  <nav>
+    <button data-tab="queue" class="active">Queue</button>
+    <button data-tab="helpers">Helpers</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-queue">
+    <div class="bar">
+      <span id="queue-count">0 pending</span>
+      <span class="grow"></span>
+      <button id="ship">Ship to hub →</button>
+      <button id="export" class="ghost">Export JSON</button>
+      <button id="clear-shipped" class="ghost">Clear shipped</button>
+    </div>
+    <div id="queue"></div>
+    <p id="ship-status" class="status"></p>
+  </section>
+
+  <section id="tab-helpers" hidden>
+    <p class="hint">Pick a helper, give it a payload, Run. It lands in the queue like any capture.</p>
+    <div id="helpers"></div>
+  </section>
+
+  <section id="tab-settings" hidden>
+    <label>Hub repo<input id="s-repo" placeholder="kajica2/kajica2.github.io"></label>
+    <label>GitHub PAT <span class="hint">(contents:write; empty = export-only mode)</span>
+      <input id="s-token" type="password" placeholder="github_pat_…">
+    </label>
+    <label>Paywall hosts <span class="hint">(one per line; captures from these ship metadata only)</span>
+      <textarea id="s-paywall" rows="3"></textarea>
+    </label>
+    <button id="save">Save</button>
+    <p id="save-status" class="status"></p>
+  </section>
+</main>
+
+<script type="module" src="popup.js"></script>
+</body></html>

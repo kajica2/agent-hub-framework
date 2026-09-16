@@ -1,0 +1,44 @@
+/* Sovereign Signal Bridge — hub palette (#04060a / cyan / magenta / amber). */
+:root { --bg:#04060a; --panel:#0a0f17; --line:#1a2533; --text:#d6e1f0; --dim:#6b7d96;
+        --cyan:#00e5ff; --mag:#ff3df0; --amber:#ffb547; --green:#5cffa0; }
+* { box-sizing: border-box; }
+body { font: 13px/1.45 -apple-system, system-ui, sans-serif; background: var(--bg);
+       color: var(--text); margin: 0; width: 420px; min-height: 320px; }
+header { display: flex; align-items: center; justify-content: space-between;
+         padding: .8rem 1rem; border-bottom: 1px solid var(--line); }
+h1 { font-size: 1rem; margin: 0; color: var(--cyan); letter-spacing: .02em; }
+nav button { background: none; border: 0; color: var(--dim); font: inherit; cursor: pointer;
+             padding: .25rem .5rem; border-radius: 4px; }
+nav button.active { color: var(--cyan); background: var(--panel); }
+main { padding: 1rem; }
+.bar { display: flex; gap: .5rem; align-items: center; margin-bottom: .75rem; }
+.grow { flex: 1; }
+button { background: var(--panel); border: 1px solid var(--line); color: var(--cyan);
+         border-radius: 5px; padding: .35rem .7rem; font: inherit; cursor: pointer; }
+button:hover { border-color: var(--mag); }
+button.ghost { color: var(--dim); }
+.task { display: flex; gap: .6rem; align-items: baseline; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 6px; padding: .5rem .65rem; margin-bottom: .45rem; }
+.task.shipped { opacity: .45; }
+.task .kind { color: var(--amber); font-family: ui-monospace, monospace; font-size: .75rem; }
+.task .helper { color: var(--green); font-family: ui-monospace, monospace; font-size: .75rem; }
+.task .when { color: var(--dim); font-size: .7rem; margin-left: auto; white-space: nowrap; }
+.task .title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.task .del { background: none; border: 0; color: var(--dim); cursor: pointer; font-size: .9rem; padding: 0 .2rem; }
+.task .del:hover { color: var(--mag); }
+.empty { color: var(--dim); font-style: italic; padding: 1rem 0; text-align: center; }
+.hint { color: var(--dim); font-size: .75rem; }
+.status { color: var(--green); font-size: .8rem; min-height: 1.1em; }
+.status.err { color: var(--mag); }
+.helper-card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+               padding: .6rem .7rem; margin-bottom: .6rem; }
+.helper-card h3 { margin: 0 0 .15rem; font-size: .85rem; color: var(--mag); font-family: ui-monospace, monospace; }
+.helper-card p { margin: 0 0 .4rem; color: var(--dim); font-size: .75rem; }
+.helper-card textarea { width: 100%; background: var(--bg); color: var(--text);
+                        border: 1px solid var(--line); border-radius: 4px; font: inherit;
+                        min-height: 2.2rem; resize: vertical; margin-bottom: .35rem; }
+label { display: block; margin-bottom: .8rem; color: var(--dim); font-size: .8rem; }
+label input, label textarea { display: block; width: 100%; margin-top: .25rem;
+  background: var(--bg); color: var(--text); border: 1px solid var(--line);
+  border-radius: 4px; font: inherit; padding: .4rem .5rem; }
+.badge { font-size: .65rem; padding: 1px 5px; border-radius: 3px; background: var(--line); color: var(--amber); }
