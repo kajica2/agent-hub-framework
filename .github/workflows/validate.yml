@@ -23,3 +23,5 @@ jobs:
         run: node scripts/validate.mjs examples/projects.example.json examples/agents.example.json
       - name: Build (paywall-gated)
         run: node scripts/build.mjs --source examples --out dist
+      - name: Extension logic tests (chrome-API mocked, no browser)
+        run: node extension/test/logic.test.mjs

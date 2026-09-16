@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "Sovereign Signal Bridge",
+  "version": "0.1.0",
+  "description": "Keyboard-first capture bridge to the Sovereign Signal agent team. Captures links, selections, pages, and voice memos; queues them as tasks; ships them to the hub as PRs.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "contextMenus",
+    "scripting",
+    "notifications",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://kajica2.github.io/*",
+    "https://huggingface.co/*",
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Sovereign Signal Bridge — queue + helper spawner",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "commands": {
+    "capture-link":      { "suggested_key": { "default": "Alt+L" }, "description": "Capture current tab URL + selection + title → agent team" },
+    "capture-voice":     { "suggested_key": { "default": "Alt+V" }, "description": "Start/stop voice memo (30s window, auto-stops)" },
+    "capture-selection": { "suggested_key": { "default": "Alt+S" }, "description": "Capture selected text → agent team" },
+    "capture-page":      { "suggested_key": { "default": "Alt+P" }, "description": "Capture full page (HTML + screenshot) → agent team" },
+    "spawn-helper":      { "suggested_key": { "default": "Alt+H" }, "description": "Open helper spawner" },
+    "open-hub":          { "suggested_key": { "default": "Alt+O" }, "description": "Open the hub in a new tab" },
+    "open-queue":        { "suggested_key": { "default": "Alt+Q" }, "description": "Open popup: pending tasks + recent results" }
+  }
+}
